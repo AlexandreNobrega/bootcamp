@@ -22,14 +22,12 @@ public class StockController {
     //consumes: consumindo JSON, produces: produzindo JSON
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockDTO> save(@Valid @RequestBody StockDTO dto) {
-
         return ResponseEntity.ok(service.save(dto));
-
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockDTO> update(@Valid @RequestBody StockDTO dto) {
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(service.update(dto));
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
