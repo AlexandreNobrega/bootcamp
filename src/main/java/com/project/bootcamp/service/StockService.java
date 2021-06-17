@@ -1,6 +1,7 @@
 package com.project.bootcamp.service;
 
 import com.project.bootcamp.exceptions.BusinessException;
+import com.project.bootcamp.exceptions.NotFoundException;
 import com.project.bootcamp.mapper.StockMapper;
 import com.project.bootcamp.model.Stock;
 import com.project.bootcamp.model.dto.StockDTO;
@@ -52,5 +53,16 @@ public class StockService {
     public List<StockDTO> findAll() {
         List<Stock> list = repository.findAll();
         return mapper.toDto(list);
+    }
+    //Método que retorna um objeto de Stock de acordo com o id informado
+    /*
+     Tenta buscar o id especifico(repository.findById(id)) e
+     convertendo o objeto para DTO(.map(mapper::toDto)) e
+     retorne o objeto
+     caso não encontre o id retorne uma exceção(.orElseThrow(NotFoundException::new))
+    */
+    @Transactional(readOnly = true)
+    public StockDTO findById(Long id) {
+        return repository.findById(id).map(mapper::toDto).orElseThrow(NotFoundException::new);
     }
 }
