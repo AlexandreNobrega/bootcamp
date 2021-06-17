@@ -54,6 +54,14 @@ public class StockService {
         List<Stock> list = repository.findAll();
         return mapper.toDto(list);
     }
+
+    @Transactional
+    public StockDTO delete(Long id) {
+        StockDTO dto = this.findById(id);
+        repository.deleteById(dto.getId());
+        return dto;
+    }
+
     //Método que retorna um objeto de Stock de acordo com o id informado
     /*
      Tenta buscar o id especifico(repository.findById(id)) e
