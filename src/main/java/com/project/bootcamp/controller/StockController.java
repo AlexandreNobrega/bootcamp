@@ -12,8 +12,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe que possui métodos endpoints
+ */
+
+@CrossOrigin //Anotação que permite que outras requisições de tecnologias distintas(browser, frontend e etc...) possa acessar o backend, utilizado para segurança.
 @RestController
-@RequestMapping(value = "/stock")
+@RequestMapping(value = "/stock") // "/stock" deve ser passado na URL
 public class StockController {
 
     @Autowired
@@ -43,5 +48,10 @@ public class StockController {
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockDTO> delete(@PathVariable Long id){
         return ResponseEntity.ok(service.delete(id));
+    }
+
+    @GetMapping(value = "/today", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StockDTO>> findByToday(){
+        return ResponseEntity.ok(service.findByToday());
     }
 }
